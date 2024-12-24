@@ -3,8 +3,15 @@ import VehicleTypeSelector from "./VehicleTypeSelector";
 import MapHighlights from "./MapHighlights";
 import SavedRoutes from "./SavedRoutes";
 import { FaBackspace } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const suggestions = ["Hyderabad", "Secunderabad", "Uppal", "KPHB", "HiTech City"];
+const suggestions = [
+  "Hyderabad",
+  "Secunderabad",
+  "Uppal",
+  "KPHB",
+  "HiTech City",
+];
 
 const Sidebar = ({
   pickup,
@@ -15,11 +22,12 @@ const Sidebar = ({
   setVehicleType,
   toggleSidebar,
   onFindRoute,
-  addMapMarker, // Receive addMapMarker function from RoutePage
+  addMapMarker,
 }) => {
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const pickupRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (pickupRef.current) {
@@ -47,27 +55,39 @@ const Sidebar = ({
     setShowSuggestions(false);
   };
 
-  // Functions to add different types of markers
   const markAccident = () => {
-    addMapMarker({ position: [51.51, -0.1], type: 'Accident' });
+    addMapMarker({ position: [51.51, -0.1], type: "Accident" });
   };
 
   const markCongestion = () => {
-    addMapMarker({ position: [51.52, -0.11], type: 'Congestion' });
+    addMapMarker({ position: [51.52, -0.11], type: "Congestion" });
   };
 
   const markRoadClosure = () => {
-    addMapMarker({ position: [51.53, -0.12], type: 'Road Closure' });
+    addMapMarker({ position: [51.53, -0.12], type: "Road Closure" });
+  };
+
+  const navigateToDashboard = () => {
+    navigate("/body/dashboard"); // Navigate to /body/dashboard
   };
 
   return (
     <div className="w-full md:w-1/3 bg-background dark:bg-darkBackground shadow-lg p-4 overflow-y-auto relative">
-      <button
-        className="text-orange-400 hover:text-orange-300 mb-4"
-        onClick={toggleSidebar}
-      >
-        <FaBackspace size={30} />
-      </button>
+      <div className="flex justify-between items-center">
+        <button
+          className="text-orange-400 hover:text-orange-300"
+          onClick={toggleSidebar}
+        >
+          <FaBackspace size={40} />
+        </button>
+
+        <button
+          onClick={navigateToDashboard} // Add onClick to navigate
+          className="bg-orange-400 hover:bg-orange-300 text-white font-bold py-2 px-4 rounded-lg mt-2"
+        >
+          Dashboard
+        </button>
+      </div>
 
       <div className="flex flex-col mb-4 relative">
         <label className="text-sm font-bold mb-2">From:</label>
@@ -110,10 +130,17 @@ const Sidebar = ({
         Find Route
       </button>
 
-      <VehicleTypeSelector vehicleType={vehicleType} setVehicleType={setVehicleType} />
-      
-      <MapHighlights markAccident={markAccident} markCongestion={markCongestion} markRoadClosure={markRoadClosure} /> {/* Pass marker functions to MapHighlights */}
-      
+      <VehicleTypeSelector
+        vehicleType={vehicleType}
+        setVehicleType={setVehicleType}
+      />
+
+      <MapHighlights
+        markAccident={markAccident}
+        markCongestion={markCongestion}
+        markRoadClosure={markRoadClosure}
+      />
+
       <SavedRoutes />
     </div>
   );
