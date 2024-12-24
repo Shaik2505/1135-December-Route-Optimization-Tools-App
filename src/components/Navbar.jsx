@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import ThemeBtn from "./ThemeBtn";
 import NavLinks from "../utils/NavLinks";
+import { MdOutlinePayment } from "react-icons/md";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +35,9 @@ const Navbar = () => {
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             <NavLinks onLinkClick={() => setIsOpen(false)} />
+            <Link to="/body/payment">
+            
+            <MdOutlinePayment size={30} className="cursor-pointer " /></Link>
             <ThemeBtn />
           </div>
           <div className="md:hidden flex items-center space-x-4">

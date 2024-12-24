@@ -9,6 +9,7 @@ import UserProfile from "./pages/UserProfile";
 import Help from "./components/Help";
 import RoutePage from "./pages/RoutePage";
 import Dashboard from "./pages/Dashboard";
+import Payment from "./pages/Payment";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="profile" element={<UserProfile />} />
           <Route path="help" element={<Help />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="payment" element={<Payment />} />
         </Route>
       </Routes>
     </div>
